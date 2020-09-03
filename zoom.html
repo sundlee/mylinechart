@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>Line Chart with crosshair</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-crosshair@1.1.6/dist/chartjs-plugin-crosshair.min.js"></script>
+<style>
+.myChartDiv {
+  max-width: 600px;
+  max-height: 400px;
+}
+</style>
+</head>
+
+<body>
+  <div class="myChartDiv">
+    <canvas id="myChart" width="600" height="400"></canvas>
+  </div>
+
+  <script>
+    var ctx = document.getElementById("myChart");
+
+      function generateDataset(shift, label, color) {
+
+        function getRandomInt(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        let data = [];
+        let index = 0;
+
+        while (index < 5) {
+          data.push({
+            x: index,
+            y: getRandomInt(10, 40)
+          });
+          index++;
+        }
+
+        console.log(`data: ${JSON.stringify(data, null, 4)}`);
+
+        var dataset = {
+          backgroundColor: color,
+          borderColor: color,
+          showLine: true,
+          fill: false,
+          pointRadius: 2,
+          label: label,
+          data: data,
+          lineTension: 0,
+          interpolate: true,
+          xAxisID: 'x-axis-0'
+        };
+        return dataset;
+      }
+
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['A', 'B', 'C', 'D', 'E'],
+          datasets: [
+            generateDataset(0, "A", "red"),
+            // generateDataset(1, "B", "green")
+          ]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              display: true,
+              type: 'linear',
+              position: 'bottom',
+              id: 'x-axis-0',
+              ticks: {
+                source: 'labels'
+              }
+            }]
+          },
+          tooltips: {
+            mode: "interpolate",
+            intersect: false,
+            callbacks: {
+              title: function (a, d) {
+                // return a[0].xLabel.toFixed(2);
+                return a[0].xLabel;
+              },
+              label: function (i, d) {
+                return (
+                  d.datasets[i.datasetIndex].label + ": " + i.yLabel.toFixed(2)
+                );
+              }
+            }
+          },
+          plugins: {
+            crosshair: {
+              sync: {
+                enabled: false
+              }
+            }
+          }
+        }
+      });
+  </script>
+</body>
+</html>
