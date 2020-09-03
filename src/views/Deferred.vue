@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="dummy"><h3>아래로 스크롤 하세요.</h3></div>
+    <div class="dummy">
+      <h3>아래로 스크롤 하세요.</h3>
+      <p>deferred를 선택하면 차트가 충분히 보이고 난뒤 1초후에 load됩니다. (default일때와 비교해보세요.)</p>
+    </div>
     <div class="lineChart">
       <line-chart4 :chart-data="chartData" :options="options" />
     </div>

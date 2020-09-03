@@ -4,24 +4,6 @@
       <line-chart3 :chart-data="chartData" :options="options" />
     </div>
     <div class="customFields">
-      <!-- <div class="radioBtnItem">
-        <fieldset>
-          <legend>Line color</legend>
-          <input type="radio" id="red" value="red" v-model="selectedLineColor">
-          <label for="red">red</label>
-          <input type="radio" id="blue" value="blue" v-model="selectedLineColor">
-          <label for="blue">blue</label>
-        </fieldset>
-      </div>
-      <div class="radioBtnItem">
-        <fieldset>
-          <legend>Line width</legend>
-          <input type="radio" id="onePixel" value="onePixel" v-model="selectedLineWidth">
-          <label for="onePixel">1px</label>
-          <input type="radio" id="threePixels" value="threePixels" v-model="selectedLineWidth">
-          <label for="threePixels">3px</label>
-        </fieldset>
-      </div> -->
       <div class="radioBtnItem">
         <fieldset>
           <legend>Tooltip style</legend>
@@ -29,8 +11,6 @@
           <label for="default">default</label>
           <input type="radio" id="callback" value="callback" v-model="selectedTooltipStyle">
           <label for="callback">callback</label>
-          <input type="radio" id="rectRot" value="rectRot" v-model="selectedTooltipStyle">
-          <label for="rectRot">rectRot</label>
         </fieldset>
       </div>
     </div>
@@ -51,7 +31,7 @@ export default {
     return {
       selectedLineColor: 'red',
       selectedLineWidth: 'onePixel',
-      selectedTooltipStyle: 'callback',
+      selectedTooltipStyle: 'default',
       chartData: {},
       datasets: [],
       options: {},
@@ -98,8 +78,8 @@ export default {
             },
             label: (tooltipItem, data) => {
               const dataset = data.datasets[tooltipItem.datasetIndex];
-              const currentValue = dataset.data[tooltipItem.index];
-              return `📦 ${currentValue.toLocaleString()}`;
+              const currentValue = dataset.data[tooltipItem.index].y;
+              return `📦 Request count: ${currentValue.toLocaleString()}`;
             },
           },
         };
@@ -130,6 +110,7 @@ export default {
         maintainAspectRatio: false,
         tooltips: this.tooltip,
       };
+      console.log(`load() - options: ${JSON.stringify(this.options, null, 4)}`);
     },
   },
 };
