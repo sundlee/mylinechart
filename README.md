@@ -1,24 +1,24 @@
 # mylinechart
 
-## Project setup
+[chart.js](https://www.chartjs.org//)의 Line Chart feature들을 on/off 해볼 수 있는 sample페이지 입니다. 아래의 feature를 조정해볼 수 있습니다.
+
+* Line color (red, blue)
+* Line style (solid, dash)
+* Line fill (filled, unfilled)
+* Line width (1px, 3px)
+* Point size (3px, 10px)
+* Interpolation (default, monotone)
+* Point style (circle, rect, rectRot)
+* Tooltip (default, callbacks)
+* deferred load (lazy load)
+* crosshair
+
+
+## 실행하는 방법
 ```
-yarn install
+{clone to local PC}
+npm install
+npm run serve
+{Open web browser and go to http://localhost:8080/mylinechart}
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
