@@ -1,24 +1,10 @@
 <template>
-  <div>
-    <div class="lineChart">
-      <line-chart5 :chart-data="chartData" :options="options" />
-    </div>
-    <!-- <div class="customFields">
-      <div class="radioBtnItem">
-        <fieldset>
-          <legend>Deferred load</legend>
-          <input type="radio" id="default" value="default" v-model="selectedCrossHair">
-          <label for="default">default</label>
-          <input type="radio" id="crosshair" value="crosshair" v-model="selectedCrossHair">
-          <label for="crosshair">crosshair</label>
-        </fieldset>
-      </div>
-    </div> -->
+  <div class="lineChart">
+    <line-chart5 ref="lineChart" :chart-data="chartData" :options="options" />
   </div>
 </template>
 
 <script>
-import moment from 'moment';
 import LineChart5 from '@/components/LineChart5.vue';
 import { ChartDataMixin } from '../mixins/chartDataMixins';
 
@@ -37,15 +23,24 @@ export default {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        elements: {
+          point: {
+            pointStyle: 'circle',
+          },
+        },
+        // scales: {
+        //   xAxes: [{
+        //     display: true,
+        //     position: 'bottom',
+        //     id: 'x-axis-0',
+        //     ticks: {
+        //       source: 'labels',
+        //     },
+        //   }],
+        // },
         scales: {
           xAxes: [{
-            display: true,
-            // type: 'linear',
-            position: 'bottom',
-            id: 'x-axis-0',
-            ticks: {
-              source: 'labels',
-            },
+            type: 'time',
           }],
         },
         tooltips: {
@@ -55,7 +50,7 @@ export default {
             title(a) {
               return a[0].xLabel;
             },
-            label(i, d) {
+            label(i) {
               return `Request count: ${i.yLabel}`;
             },
           },
@@ -67,7 +62,7 @@ export default {
             },
             zoom: {
               enabled: false,
-            }
+            },
           },
         },
       },
@@ -93,10 +88,6 @@ export default {
           data: this.data,
         }],
       };
-      console.log(`load() - options: ${JSON.stringify(this.options, null, 4)}`);
-    },
-    scrollToTop() {
-      window.scrollTo(0, 0);
     },
   },
 };

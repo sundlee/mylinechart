@@ -5,7 +5,7 @@
       <p>deferred를 선택하면 차트가 충분히 보이고 난뒤 1초후에 load됩니다. (default일때와 비교해보세요.)</p>
     </div>
     <div class="lineChart">
-      <line-chart4 :chart-data="chartData" :options="options" />
+      <line-chart4 ref="lineChart" :chart-data="chartData" :options="options" />
     </div>
     <div class="customFields">
       <div class="radioBtnItem">
@@ -40,11 +40,23 @@ export default {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        elements: {
+          point: {
+            pointStyle: 'circle',
+          },
+        },
         plugins: {
           deferred: {
-            xOffset: 150,
-            yOffset: '50%',
+            xOffset: '50%',
             delay: 1000,
+          },
+          crosshair: {
+            sync: {
+              enabled: false,
+            },
+            zoom: {
+              enabled: false,
+            },
           },
         },
       },
@@ -55,7 +67,6 @@ export default {
   },
   watch: {
     selectedDeferredLoad(data) {
-      console.log(`watch() - selectedDeferredLoad - data: ${data}`);
       if (data === 'default') {
         this.options = {
           responsive: true,
@@ -67,9 +78,16 @@ export default {
           maintainAspectRatio: false,
           plugins: {
             deferred: {
-              xOffset: 150,
-              yOffset: '50%',
-              delay: 500,
+              xOffset: '50%',
+              delay: 1000,
+            },
+            crosshair: {
+              sync: {
+                enabled: false,
+              },
+              zoom: {
+                enabled: false,
+              },
             },
           },
         };
@@ -96,18 +114,7 @@ export default {
           data: this.data,
         }],
       };
-      // this.options = {
-      //   responsive: true,
-      //   maintainAspectRatio: false,
-      //   plugins: !this.selectedDeferredLoad === 'deferred' ? {} : {
-      //     deferred: {
-      //       xOffset: 150,
-      //       yOffset: '50%',
-      //       delay: 500,
-      //     },
-      //   },
-      // };
-      console.log(`load() - options: ${JSON.stringify(this.options, null, 4)}`);
+      this.$refs.lineChart.update();
     },
     scrollToTop() {
       window.scrollTo(0, 0);

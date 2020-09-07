@@ -11,19 +11,21 @@ export default {
       type: Object,
       required: true,
     },
-
-  },
-  data() {
-    return {
-
-    };
   },
   mounted() {
     this.renderChart(this.chartData, this.options);
   },
   watch: {
-    chartData() {
-      this.renderChart(this.chartData, this.options);
+    chartData: {
+      deep: true,
+      handler() {
+        this.renderChart(this.chartData, this.options);
+      },
+    },
+  },
+  methods: {
+    update() {
+      this.$data._chart.update();
     },
   },
 };

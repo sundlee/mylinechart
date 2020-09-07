@@ -2,7 +2,7 @@
 import { Line, mixins } from 'vue-chartjs';
 
 export default {
-  name: 'LineChart2',
+  name: 'LineChart6',
   extends: Line,
   mixins: [mixins.reactiveProp],
   props: {
@@ -13,14 +13,6 @@ export default {
   },
   mounted() {
     this.renderChart(this.chartData, this.options);
-  },
-  watch: {
-    chartData: {
-      deep: true,
-      handler() {
-        this.renderChart(this.chartData, this.options);
-      },
-    },
   },
   methods: {
     update() {

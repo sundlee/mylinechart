@@ -30,6 +30,11 @@ const routes = [
     name: 'CrossHair',
     component: () => import('../views/CrossHair.vue'),
   },
+  {
+    path: '/dynamic',
+    name: 'Dynamic',
+    component: () => import('../views/Dynamic.vue'),
+  },
 ];
 
 const router = new VueRouter({

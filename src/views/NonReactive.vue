@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="lineChart">
-      <line-chart2 :chart-data="chartData" :options="options" />
+      <line-chart2 ref="lineChart" :chart-data="chartData" :options="options" />
     </div>
     <div class="customFields">
       <!-- <div class="radioBtnItem">
@@ -115,6 +115,7 @@ export default {
           },
         },
       };
+      this.$refs.lineChart.update();
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="lineChart">
-      <line-chart1 :chart-data="chartData" :options="options"></line-chart1>
+      <line-chart1 ref="lineChart" :chart-data="chartData" :options="options"></line-chart1>
     </div>
     <div class="customFields">
       <div class="radioBtnItem">
@@ -144,7 +144,13 @@ export default {
       this.options = {
         responsive: true,
         maintainAspectRatio: false,
+        elements: {
+          point: {
+            pointStyle: 'circle',
+          },
+        },
       };
+      this.$refs.lineChart.update();
     },
   },
 };

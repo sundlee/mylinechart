@@ -5,7 +5,8 @@
       <router-link to="/non-reactive">Non reactive</router-link> |
       <router-link to="/tooltip">Tooltip</router-link> |
       <router-link to="/deferred">Deferred load</router-link> |
-      <router-link to="/crosshair">crosshair</router-link>
+      <router-link to="/crosshair">crosshair</router-link> |
+      <router-link to="/dynamic">dynamic</router-link>
     </div>
 
     <div class="container">

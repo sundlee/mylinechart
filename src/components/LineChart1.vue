@@ -10,15 +10,14 @@ export default {
       type: Object,
       required: true,
     },
-
-  },
-  data() {
-    return {
-
-    };
   },
   mounted() {
     this.renderChart(this.chartData, this.options);
+  },
+  methods: {
+    update() {
+      this.$data._chart.update();
+    },
   },
 };
 </script>

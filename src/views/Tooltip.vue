@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="lineChart">
-      <line-chart3 :chart-data="chartData" :options="options" />
+      <line-chart3 ref="lineChart" :chart-data="chartData" :options="options" />
     </div>
     <div class="customFields">
       <div class="radioBtnItem">
@@ -49,7 +49,6 @@ export default {
       this.load();
     },
     selectedTooltipStyle(style) {
-      console.log(`watch() - selectedTooltipStyle - style: ${style}`);
       if (style === 'default') {
         this.tooltip = {
           enabled: true,
@@ -108,9 +107,24 @@ export default {
       this.options = {
         responsive: true,
         maintainAspectRatio: false,
+        elements: {
+          point: {
+            pointStyle: 'circle',
+          },
+        },
         tooltips: this.tooltip,
+        plugins: {
+          crosshair: {
+            sync: {
+              enabled: false,
+            },
+            zoom: {
+              enabled: false,
+            },
+          },
+        },
       };
-      console.log(`load() - options: ${JSON.stringify(this.options, null, 4)}`);
+      this.$refs.lineChart.update();
     },
   },
 };
