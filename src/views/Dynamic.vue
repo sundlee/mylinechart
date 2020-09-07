@@ -126,6 +126,7 @@ export default {
           label: 'GET /my/v1.0/aaa/bbb/ccc/ddd1',
           borderColor: chartColors.orange,
           backgroundColor: chartColors.orange,
+          cubicInterpolationMode: 'monotone',
           // borderWidth: 2,
           fill: false,
           data: [
@@ -138,6 +139,7 @@ export default {
           label: 'GET /my/v1.0/aaa/bbb/ccc/ddd2',
           borderColor: chartColors.red,
           backgroundColor: chartColors.red,
+          cubicInterpolationMode: 'monotone',
           // borderWidth: 2,
           fill: false,
           // showLine: false,
@@ -176,7 +178,7 @@ export default {
     },
     addDataset() {
       const newDataset = {
-        label: `GET /my/v1.0/aaa/bbb/ccc/ddd${this.chartData.datasets.length}`,
+        label: `GET /my/v1.0/aaa/${this.chartData.datasets.length}`,
         borderColor: this.getChartColor(),
         backgroundColor: this.getChartColor(),
         fill: false,
@@ -185,6 +187,14 @@ export default {
       for (let i = 0; i < this.chartData.labels.length; i++) {
         newDataset.data.push(this.randomScalingFactor());
       }
+      if (this.chartData.datasets.length % 5 === 0) {
+        const lineChart = document.getElementById('line-chart');
+        // console.log('lineChart: ', lineChart.style.height);
+        // lineChart.style.height = '700px';
+        lineChart.style.height = `${400 + this.chartData.datasets.length * 5}px`;
+        this.$refs.lineChart.update();
+      }
+
       this.chartData.datasets.push(newDataset);
       this.$refs.lineChart.update();
     },
